@@ -123,9 +123,9 @@ Menyajikan rekap invoice serta pengecekan otomatis antara data penjualan dan tra
 
 EN:
 
-📆 Highest monthly sales: July 2025
+📆 Highest monthly sales: September 2025
 
-💰 Best-performing category: Electronics
+💰 Best-performing category: Elektrikal
 
 📊 Real-time stock updates per transaction
 
@@ -134,9 +134,9 @@ EN:
 
 ID:
 
-📆 Penjualan tertinggi terjadi pada Juli 2025
+📆 Penjualan tertinggi terjadi pada September 2025
 
-💰 Kategori dengan performa terbaik: Elektronik
+💰 Kategori dengan performa terbaik: Elektrikal
 
 📊 Stok otomatis terupdate setiap transaksi
 
@@ -150,7 +150,7 @@ ID:
 
 Microsoft Excel — Main analytics & visualization tool
 
-Canva / Snipping Tool — For dashboard and report previews
+Snipping Tool — For dashboard and report previews
 
 Mockaroo and ChatGPT — For generating dummy items and transaction data
 
