@@ -47,14 +47,47 @@ Dashboard akhir dan ringkasan KPI
 
 ---
 
+🧮 Key Excel Formulas Used
+
+| **Sheet** | **Formula** | **Description** |
+|------------|-------------|-----------------|
+| Transactions | `=VLOOKUP(C2,Items,2,0)` | Fetches Item Name from the Items sheet based on Item ID. |
+| Transactions | `=TEXT([@Date],"MMM-YYYY")` | Converts date into Month-Year format to assist pivot grouping. |
+| Invoices Detail | `=INDEX(Transactions[Date],MATCH([@[Transaction ID]],Transactions[Transaction ID],0))` | Retrieves transaction date dynamically based on matching ID. |
+| Invoices Display | `=TEXTJOIN(", ",TRUE,FILTER(Invoices_Detail!$C$2:$C$201,Invoices_Detail!$A$2:$A$201=A2))` | Combines multiple customer names for the same invoice using TEXTJOIN + FILTER. |
+| Invoices Display | `=TEXTJOIN(" + ",TRUE,FILTER(Invoices_Detail!$G$2:$G$201,Invoices_Detail!$A$2:$A$201=$A2)) & " = " & SUM(FILTER(Invoices_Detail!G2:G3,Invoices_Detail!A2:A3=A2))` | Summarizes total value per invoice dynamically. |
+| Stock Report | `=SUMIFS(Transactions[Qty], Transactions[Item ID],[@[Item ID]], Transactions[Type],"IN")` | Calculates total incoming stock per item. |
+| Stock Report | `=SUMIFS(Transactions[Qty], Transactions[Item ID],[@[Item ID]], Transactions[Type],"OUT")` | Calculates total outgoing stock per item. |
+| Stock Report | `=IF([@[Current Stock]]<[@[Reorder Level]],"Low Stock","OK")` | Flags items below reorder threshold. |
+| Invoice Summary | `=SUMIFS(InvoicesDetail[Line Total], InvoicesDetail[Invoice ID], [@[Invoice ID]])` | Sums all transaction values per invoice for final reconciliation. |
+| Invoice Summary | `=IF([@[Total Invoice]]=[@[Total OUT]],"OK","Mismatch")` | Validates consistency between invoice total and recorded sales. |
+
+
+
+---
+
 📊 Project Outputs
 
 🧱 Dashboard Overview
 
 EN:
 Summarizes warehouse performance — including sales trends, top items, and stock movements.
+
 ID:
 Menampilkan ringkasan performa gudang — mulai dari tren penjualan, barang terlaris, hingga pergerakan stok.
+
+
+
+
+---
+
+💸 Invoice Display
+
+EN:
+A complete view of the invoice template, linked to sales data and used for invoice reporting.
+
+ID:
+Tampilan lengkap template invoice yang terhubung dengan data penjualan dan disusun secara rapi untuk keperluan laporan.
 
 
 
@@ -65,6 +98,7 @@ Menampilkan ringkasan performa gudang — mulai dari tren penjualan, barang terl
 
 EN:
 Displays real-time stock levels and low-stock alerts automatically after each transaction.
+
 ID:
 Menunjukkan stok terkini secara otomatis dan memberikan peringatan barang yang perlu restock.
 
@@ -77,43 +111,9 @@ Menunjukkan stok terkini secara otomatis dan memberikan peringatan barang yang p
 
 EN:
 Summarizes all invoices and reconciles sales transactions dynamically.
+
 ID:
 Menyajikan rekap invoice serta pengecekan otomatis antara data penjualan dan transaksi.
-
-
-
-
----
-
-💸 Invoice Display
-
-EN:
-Full invoice layout automatically linked to sales and customer data.
-ID:
-Tampilan penuh template invoice otomatis yang terhubung dengan data penjualan dan pelanggan.
-
-
-
-
----
-
-🔢 Core Formulas Used
-
-EN:
-The following Excel functions were used throughout the project to automate calculations, validate data, and link tables dynamically.
-ID:
-Berikut formula utama yang digunakan untuk otomatisasi perhitungan, validasi data, dan penghubung antar tabel.
-
-Category	Formula	Description
-
-Stock Movement	=SUMIFS(Transactions[Qty], Transactions[Item ID],[@[Item ID]], Transactions[Type],"IN")	Calculates total stock IN per item
-	=SUMIFS(Transactions[Qty], Transactions[Item ID],[@[Item ID]], Transactions[Type],"OUT")	Calculates total stock OUT per item
-Current Stock	=Items[@Stock]+[@[Total IN]]-[@[Total OUT]]	Updates real-time stock level
-Low Stock Alert	=IF([@Current Stock]<[@Reorder Level],"Low Stock","OK")	Highlights items that need restocking
-Invoice Reconciliation	=IF([@[Total Invoice]]=[@[Total OUT]],"OK","Mismatch")	Validates data consistency between invoice & sales
-Month-Year Grouping	=TEXT([@Date],"MMM-YYYY")	Groups transactions by month for trend charts
-Customer Summary	=TEXTJOIN(", ",TRUE,FILTER(Transactions[Customer],Transactions[Invoice]=[@Invoice]))	Auto-list of customers per invoice
-Sales Trend	=SUMIFS(Sales[Amount],Sales[Month],[@Month])	Aggregates monthly revenue for dashboard visuals
 
 
 
@@ -152,7 +152,7 @@ Microsoft Excel — Main analytics & visualization tool
 
 Canva / Snipping Tool — For dashboard and report previews
 
-(Optional) Mockaroo — For generating dummy transaction data
+Mockaroo and ChatGPT — For generating dummy items and transaction data
 
 
 
